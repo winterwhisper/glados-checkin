@@ -4,10 +4,10 @@ import requests,json,os
 sever = os.environ["SERVE"]
 # 填写server酱sckey,不开启server酱则不用填
 sckey = os.environ["SCKEY"]
-#'SCU89402Tf98b7f01ca3394b9ce9aa5e2ed1abbae5e6ca42796bb9'
+#'SCU89402Tf98b7f01ca3394*********************************'
 # 填入glados账号对应cookie
 cookie = os.environ["COOKIE"]
-#'__cfduid=d3459ec306384ca67a65170f8e2a5bd561593049467; _ga=GA1.2.766373509.1593049472; _gid=GA1.2.1338236108.1593049472; koa:sess=eyJ1c2VySWQiOjQxODMwLCJfZXhwaXJlIjoxNjE4OTY5NTI4MzY4LCJfbWF4QWdlIjoyNTkyMDAwMDAwMH0=; koa:sess.sig=6qG8SyMh_5KpSB6LBc9yRviaPvI'
+#'__cfduid=d3459ec306384ca67a65170f8e2a5bd************; _ga=GA1.2.766373509.1593*****72; _gid=GA1.2.1338236108.***********72; koa:sess=eyJ1c2VySW*********************aXJlIjoxNjE4OTY5NTI4MzY4LCJfbWF4QWdl****0=; koa:sess.sig=6qG8SyMh*****LBc9yRviaPvI'
 
 
 
@@ -16,9 +16,14 @@ def start():
     
     url= "https://glados.rocks/api/user/checkin"
     url2= "https://glados.rocks/api/user/status"
-    referer = 'https://glados.rocks/console/checkin'
-    checkin = requests.post(url,headers={'cookie': cookie ,'referer': referer })
-    state =  requests.get(url2,headers={'cookie': cookie ,'referer': referer})
+    origin = "https://glados.rocks"
+    referer = "https://glados.rocks/console/checkin"
+    useragent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36"
+    payload={
+        'token': 'glados_network'
+    }
+    checkin = requests.post(url,headers={'cookie': cookie ,'referer': referer,'origin':origin,'user-agent':useragent,'content-type':'application/json;charset=UTF-8'},data=json.dumps(payload))
+    state =  requests.get(url2,headers={'cookie': cookie ,'referer': referer,'origin':origin,'user-agent':useragent})
    # print(res)
 
     if 'message' in checkin.text:
